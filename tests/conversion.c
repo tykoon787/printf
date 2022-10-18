@@ -31,7 +31,8 @@ int _printf(const char *format, ...)
 	for (; i < len; i++)
 	{
 		/* Copy the contents of format to buffer */
-		buffer[i] = format[i];
+		if ((format[i] != '%') && (format[i+1] != 'c'))
+			buffer[i] = format[i];
 
 		printf("Copying contents to buffer\n");
 		switch(format[i])
