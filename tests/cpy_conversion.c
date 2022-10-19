@@ -60,25 +60,6 @@ int _printf(const char *format, ...)
 			buffer[i] = format[i];
 		}
 	}
-	/* Loop through format to check for format spec */
-	/* for (; i < len; i++) */
-	/* { */
-	/* printf("Loop number: [%d]\n", i); */
-	/* 	 Copy the contents of format to buffer  */
-	/* 	if ((format[i] != '%') || (format[i+1] != 'c')) */
-	/* 	{ */
-	/* 		printf("(if) Copying buffer \n"); */
-	/* 		buffer[i] = format[i]; */
-	/* 	} */
-	/*  */
-	/* 	switch(format[i]) */
-	/* 	{ */
-	/* 		case '%': */
-	/* 		if (format[i + 1] == 'c') */
-	/* 		buffer[i] = (char) va_arg(args, int); */
-	/* 		printf("%c\n", x); */
-	/* 	} */
-	/* } */
 	printf("Copied buffer %d times\n",i);
 
 	/* Write the buffer to stdout */
