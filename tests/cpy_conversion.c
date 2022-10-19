@@ -53,6 +53,7 @@ int _printf(const char *format, ...)
 					strcpy(&buffer[i], str_arg);
 					printf("this is a string\n");
 					i++;
+					count++;
 					break;
 				case 'd':
 					buffer[i] = va_arg(args, int);
@@ -90,7 +91,7 @@ int _printf(const char *format, ...)
 	/* Write the buffer to stdout */
 	/* printf("Size of buffer is :%d\n", i+1); */
 	/* printf("%d\n", (int) strlen(str_arg)); */
-	printf("Printed :%d bytes\n", (int) write(1, buffer, count + strlen(str_arg)));
+	printf("Printed :%d bytes\n", (int) write(1, buffer, count + strlen(str_arg) + 1));
 	putchar('\n');
 
 	return (returnValue);
@@ -98,6 +99,6 @@ int _printf(const char *format, ...)
 
 int main(void)
 {
-	_printf("Hello %c World %c and %s", 'x', 'b', "Baby panda");
+	_printf("Hello %c World %c and %s", 'x', 'b', "Panda");
 	return (0);
 }
