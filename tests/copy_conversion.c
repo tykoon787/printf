@@ -9,7 +9,7 @@ int _printf(const char *format, ...)
 	int i = 0, j = 0, len = 0;
 	va_list args; 
 	/* char x; */
-	char *buffer; 
+	char *buffer, *str_arg; 
 
 	va_start(args, format);
 
@@ -37,6 +37,12 @@ int _printf(const char *format, ...)
 			{
 				case 'c':
 					buffer[j] = (char)va_arg(args, int);
+					j++;
+					break;
+
+				case 's':
+					str_arg = va_arg(args, char *);
+					strcpy(&buffer[j], str_arg);
 					j++;
 					break;
 			}
@@ -71,6 +77,6 @@ int _printf(const char *format, ...)
 
 int main(void)
 {
-	_printf("%c Hello %c World", 'x', 'b');
+	_printf("%c Hello %c World it's %s", 'x', 'b', "Friday");
 	return (0);
 }
