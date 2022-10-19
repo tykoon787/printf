@@ -27,22 +27,56 @@ int _printf(const char *format, ...)
 	if (buffer == NULL)
 		return (-1);
 
-	/* Loop through format to check for format spec */
 	for (; i < len; i++)
 	{
-		/* Copy the contents of format to buffer */
-		if ((format[i] != '%') && (format[i+1] != 'c'))
-			buffer[i] = format[i];
-
-		printf("Copying contents to buffer\n");
-		switch(format[i])
+		printf("Loop number %d\n",i);
+		if (format[i] == '%')
 		{
-			case '%':
-			if (format[i + 1] == 'c')
-			buffer[i] = (char) va_arg(args, int);
-			printf("%c\n", x);
+			switch(format[i + 1])
+			{
+				case 'c':
+					buffer[i] = (char) va_arg(args, int);
+					printf("%c\n", x);
+					printf("Character\n");
+					i++;
+					break;
+				case 's':
+					printf("This is a string\n");
+					i++;
+					break;
+				case 'd':
+					buffer[i] = va_arg(args, int);
+					// Buffer stores int as a char,
+					// Conversion needed during output
+					printf("This is a decimal value\n");
+					i++;
+					break;
+			}
+		}
+		else
+		{
+			buffer[i] = format[i];
 		}
 	}
+	/* Loop through format to check for format spec */
+	/* for (; i < len; i++) */
+	/* { */
+	/* printf("Loop number: [%d]\n", i); */
+	/* 	 Copy the contents of format to buffer  */
+	/* 	if ((format[i] != '%') || (format[i+1] != 'c')) */
+	/* 	{ */
+	/* 		printf("(if) Copying buffer \n"); */
+	/* 		buffer[i] = format[i]; */
+	/* 	} */
+	/*  */
+	/* 	switch(format[i]) */
+	/* 	{ */
+	/* 		case '%': */
+	/* 		if (format[i + 1] == 'c') */
+	/* 		buffer[i] = (char) va_arg(args, int); */
+	/* 		printf("%c\n", x); */
+	/* 	} */
+	/* } */
 	printf("Copied buffer %d times\n",i);
 
 	/* Write the buffer to stdout */
@@ -55,6 +89,6 @@ int _printf(const char *format, ...)
 
 int main(void)
 {
-	_printf("%c Hello %c World", 'x', 'b');
+	_printf("%c Hello %c World %d", 'x', 'b', 33);
 	return (0);
 }
