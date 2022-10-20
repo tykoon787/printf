@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS_H 
-#define FUNCTIONS_H 
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
 
 #include <unistd.h>
 #include <stdarg.h>
@@ -15,7 +15,8 @@
 int print_char(va_list arg_c)
 {
 	char *buff;
-	int x; 
+	int x;
+
 	x = va_arg(arg_c, int);
 	_putchar(x);
 	return (1);
@@ -25,13 +26,14 @@ int print_char(va_list arg_c)
 * print_str - prints string to buffer
 * @arg_str: string argument
 *
-* Return: (1) Always Success 
+* Return: (1) Always Success
 */
 
 int print_str(va_list arg_str)
 {
 	char *str_arg = va_arg(arg_str, char *);
 	int x = 0;
+
 	while (str_arg[x] != '\0')
 	{
 		_putchar(str_arg[x++]);
@@ -50,8 +52,7 @@ int (*format_check(const char *format))(va_list)
 {
 	int i = 0;
 
-	spec sp[] =
-	{
+	spec sp[] = {
 		{"c", print_char},
 		{"s", print_str},
 		{NULL, NULL}
@@ -59,7 +60,7 @@ int (*format_check(const char *format))(va_list)
 
 	for (; sp[i].s != NULL; i++)
 	{
-		if(*(sp[i].s) == *format)
+		if (*(sp[i].s) == *format)
 			break;
 	}
 	return (sp[i].f);
@@ -94,23 +95,5 @@ char *_strcpy(char *dest, char *src)
 int _putchar(char c)
 {
 	return (write(1, &c, 1));
-}
-
-
-/**
-* _strlen - gets length of a string
-* @str: string input
-*
-* Return: length of string
-*/
-
-int _strlen(char *str)
-{
-	int i;
-	
-	for (i = 0; str[i]; i++)
-		;
-
-	return (i);
 }
 #endif /* FUNCTIONS_H */
