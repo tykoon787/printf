@@ -26,7 +26,7 @@ int _printf(const char *format, ...)
 	}
 	buffer = malloc(sizeof(char) * len);
 	if (buffer == NULL)
-		return(-1);
+		return (-1);
 	for (i = 0; i < len; i++)
 	{
 		if (format[i] == '%')
@@ -53,7 +53,6 @@ int _printf(const char *format, ...)
 			buffer[j] = format[i];
 			j++;
 	}
-	va_end(args);
 	return (write(1, buffer, j));
 }
 
@@ -80,6 +79,7 @@ char *_strcpy(char *dest, char *src)
 
 /**
  * _putchar - prints out characters
+ * @c: Char
  *
  * Return: 0
  */
