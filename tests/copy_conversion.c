@@ -22,7 +22,7 @@ int _printf(const char *format, ...)
 	printf("Length of format: %d\n", len);
 	
 	/* Allocate Space to buffer */
-	buffer = malloc(sizeof(char) * len);
+	buffer = malloc(sizeof(char) * 100);
 	if (buffer == NULL)
 		return (-1);
 
