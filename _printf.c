@@ -107,9 +107,3 @@ int _strlen(char *str)
 
 	return (i);
 }
-
-int main(void)
-{
-	_printf("Works\n");
-	return (0);
-}
