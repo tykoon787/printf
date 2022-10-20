@@ -1,3 +1,6 @@
+#ifndef FUNCTIONS_H 
+#define FUNCTIONS_H 
+
 #include <unistd.h>
 #include <stdarg.h>
 #include "main.h"
@@ -110,3 +113,4 @@ int _strlen(char *str)
 
 	return (i);
 }
+#endif /* FUNCTIONS_H */
