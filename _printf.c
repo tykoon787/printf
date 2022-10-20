@@ -23,6 +23,8 @@ int _printf(const char *format, ...)
 		{
 			i++;
 			fp = format_check(&format[i]);
+			if (fp == NULL)
+				return (-1);
 			word_counter = word_counter + fp(args);
 			i++;
 			continue;
