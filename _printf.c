@@ -79,7 +79,7 @@ char *_strcpy(char *dest, char *src)
 
 /**
  * _putchar - prints out characters
- * @c: Char
+ * @c: character input
  *
  * Return: 0
  */
