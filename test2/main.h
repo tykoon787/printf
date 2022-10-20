@@ -17,5 +17,3 @@ typedef struct special_characters
 } spec;/* Specifier */
 
 #endif /* MAIN_H */
-
-
