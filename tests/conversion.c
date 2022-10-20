@@ -25,8 +25,7 @@ int _printf(const char *format, ...)
 		i++;
 	}
 	buffer = malloc(sizeof(char) * len);
-	if (buffer == NULL)
-		return (-1);
+	if (buffer == NULL) return(-1);
 	else
 		cpy_buffer = buffer;
 	for (i = 0; i < len; i++)
@@ -38,7 +37,7 @@ int _printf(const char *format, ...)
 			{
 				case 'c':
 					buffer[j] = (char) va_arg(args, int);
-					j++;
+					j++; 
 					break;
 				case 's':
 					str_arg = va_arg(args, char *);
