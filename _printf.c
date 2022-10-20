@@ -43,10 +43,6 @@ int _printf(const char *format, ...)
 					_strcpy(&buffer[j], str_arg);
 					j = j + _strlen(str_arg);
 					break;
-				case 'd':
-					buffer[j] = va_arg(args, int);
-					j++;
-					break;
 			}
 		}
 		else
