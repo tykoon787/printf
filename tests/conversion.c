@@ -7,7 +7,7 @@
 
 int _printf(const char *format, ...)
 {
-	int i = 0, count = 0, returnValue = 22, size = 0, len = 0;
+	int i = 0, j = 0, count = 0, returnValue = 22, size = 0, len = 0;
 	va_list args; 
 	char x;
 	char *buffer, *str_arg, *cpy_buffer; 
@@ -41,28 +41,27 @@ int _printf(const char *format, ...)
 			switch(format[i + 1])
 			{
 				case 'c':
-					buffer[i] = (char) va_arg(args, int);
-					i++;
+					buffer[j] = (char) va_arg(args, int);
+					j++;
 					count++;
 					break;
 				case 's':
 					str_arg = va_arg(args, char *);
-					_strcpy(&buffer[i], str_arg);
-					i++;
-					count++;
+					_strcpy(&buffer[j], str_arg);
+					j = j + strlen(str_arg);
 					break;
 				case 'd':
-					buffer[i] = va_arg(args, int);
+					buffer[j] = va_arg(args, int);
 					 /* Buffer stores int as a char, */
 					 /* Conversion needed during output */
-					i++;
+					j++;
 					count++;
 					break;
 			}
 		}
 		else
 		{
-			buffer[i] = format[i];
+			buffer[j] = format[i];
 			count++;
 		}
 	}
@@ -70,10 +69,8 @@ int _printf(const char *format, ...)
 	
 
 	/* Write the buffer to stdout */
-	returnValue = (int) write(1, buffer, count + strlen(str_arg) + 1);
-
-	printf("%d\n", returnValue);
-
+	returnValue = (int) write(1, buffer, count + strlen(str_arg));
+	printf("Return Value : %d\n", returnValue);
 	return (returnValue);
 }
 
@@ -133,24 +130,6 @@ int _strlen(char *str)
 
 int main(void)
 {
-	char *ptr;
-	char buff[100];
-
-	/* test _strcpy */
-	ptr = _strcpy(buff, "grand rapids");
-
-	_printf("%s", ptr);
-
-	_printf("\n");
-
-	/* test _strlen */
-	printf("length of world is %d\n", _strlen("world"));
-
-	/* test _putchar */
-
-	_putchar('b');
-	_putchar('\n');
-
-	_printf("Hello %c World %c and %s", 'x', 'b', "Panda");
+	_printf("Hello %c %c %s World %c and %s", 'a', 'x', " Baby" , 'b', "Panda");
 	return (0);
 }
