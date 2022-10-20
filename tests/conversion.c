@@ -73,7 +73,9 @@ int _printf(const char *format, ...)
 			j++;
 		}
 	}
-	
+
+	va_end(args);
+
 	/* Write the buffer to stdout && Return number of bytes printed */
 	returnValue = (int) write(1, buffer, j);
 	return (returnValue);
