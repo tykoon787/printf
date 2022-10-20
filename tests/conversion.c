@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "main.h"
 
 int _printf(const char *format, ...)
 {
@@ -46,7 +47,7 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					str_arg = va_arg(args, char *);
-					strcpy(&buffer[i], str_arg);
+					_strcpy(&buffer[i], str_arg);
 					i++;
 					count++;
 					break;
@@ -70,6 +71,8 @@ int _printf(const char *format, ...)
 
 	/* Write the buffer to stdout */
 	returnValue = (int) write(1, buffer, count + strlen(str_arg) + 1);
+
+	printf("%d\n", returnValue);
 
 	return (returnValue);
 }
