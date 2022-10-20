@@ -24,7 +24,7 @@ int _printf(const char *format, ...)
 	}
 	buffer = malloc(sizeof(char) * len);
 	if (buffer == NULL)
-		return (NULL);
+		return (int)(NULL);
 	for (i = 0; i < len; i++)
 	{
 		if (format[i] == '%')
