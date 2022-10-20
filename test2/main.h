@@ -1,0 +1,2 @@
+/* Functions Prototype */
+/* Structure Prototype */
