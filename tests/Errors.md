@@ -13,4 +13,5 @@
 > The string `Panda` will not be printed wholly. Only 2 bytes of `Panda` will be printed
 
 #### Solution to Problem 2 
-> This problem was solved by changing the index buffer from `i` to `j`. 
+> This problem was solved by changing the index buffer from `i` to `j` and increasing 
+> index `i` after a case is satisfied i.e., before the `switch-case` check. 
