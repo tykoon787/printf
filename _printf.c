@@ -11,13 +11,12 @@
  *
  * Return: Number of bytes written to `stdout`
  */
+static int i, j, len;
+static va_list args;
+static char *buffer, *str_arg;
 
 int _printf(const char *format, ...)
 {
-	int i = 0, j = 0, len = 0;
-	va_list args;
-	char *buffer, *str_arg;
-
 	va_start(args, format);
 	while (format[i] != '\0')
 	{
@@ -104,4 +103,10 @@ int _strlen(char *str)
 		;
 
 	return (i);
+}
+
+int main(void)
+{
+	_printf("Animals like %s like the letter %c and the word %s\n", "Pandas", 'x', "Bamboo");
+	return (0);
 }
