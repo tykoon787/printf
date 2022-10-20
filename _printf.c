@@ -102,9 +102,3 @@ int _strlen(char *str)
 
 	return (i);
 }
-
-int main(void)
-{
-	_printf("Animals like %s like the letter %c and the word %s\n", "Pandas", 'x', "Bamboo");
-	return (0);
-}
