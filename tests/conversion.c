@@ -74,8 +74,80 @@ int _printf(const char *format, ...)
 	return (returnValue);
 }
 
+/**
+ * _strcpy - copys a string to given destination
+ * @dest: destination
+ * @src: str source
+ *
+ * Return: pointer to buffer
+ */
+
+char *_strcpy(char *dest, char *src)
+{
+	int i;
+
+	for (i = 0; src[i]; i++)
+	{
+		dest[i] = src[i];
+	}
+
+	/* omitted terminating null byte */
+	return (dest);
+}
+
+/**
+ * _putchar - prints out characters
+ *
+ * Return: 0
+ */
+
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
+}
+
+/**
+ * _strlen - gets length of a string
+ * @str: string input
+ *
+ * Return: length of string
+ */
+
+int _strlen(char *str)
+{
+	int i;
+
+	for (i = 0; str[i]; i++)
+		;
+
+	return (i);
+}
+/**
+ * main - entry point
+ *
+ * Return: Number of characters printed
+ */
+
 int main(void)
 {
+	char *ptr;
+	char buff[100];
+
+	/* test _strcpy */
+	ptr = _strcpy(buff, "grand rapids");
+
+	_printf("%s", ptr);
+
+	_printf("\n");
+
+	/* test _strlen */
+	printf("length of world is %d\n", _strlen("world"));
+
+	/* test _putchar */
+
+	_putchar('b');
+	_putchar('\n');
+
 	_printf("Hello %c World %c and %s", 'x', 'b', "Panda");
 	return (0);
 }
