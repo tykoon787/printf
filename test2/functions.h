@@ -45,7 +45,7 @@ int print_str(va_list arg_str)
 * Return: relevant function
 */
 
-int (*check_format(const char *format))(va_list)
+int (*format_check(const char *format))(va_list)
 {
 	int i = 0;
 
