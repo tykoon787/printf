@@ -14,34 +14,25 @@
 
 int _printf(const char *format, ...)
 {
-	int i = 0, j = 0, count = 0, returnValue = 22, size = 0, len = 0;
+	int i = 0, j = 0, count = 0, returnValue, len = 0;
 	va_list args; 
-	char x;
 	char *buffer, *str_arg, *cpy_buffer; 
-	
 
 	va_start(args, format);
 
-	/* Get length of format */
-	while(format[size] != '\0')
+	while(format[i] != '\0')
 	{
 		len++;
-		size++;
-	}
-	size = 0;
-	
-	/* Allocate Space to buffer */
-	buffer = malloc(sizeof(char) * 1000);
-	if (buffer == NULL)
-	{
-		return (-1);
-	}
-	else
-	{
-		cpy_buffer = buffer;
+		i++;
 	}
 
-	for (; i < len; i++)
+	buffer = malloc(sizeof(char) * len);
+	if (buffer == NULL)
+		return (-1);
+	else
+		cpy_buffer = buffer;
+
+	for (i = 0; i < len; i++)
 	{
 		if (format[i] == '%')
 		{
@@ -60,25 +51,17 @@ int _printf(const char *format, ...)
 					break;
 				case 'd':
 					buffer[j] = va_arg(args, int);
-					 /* Buffer stores int as a char, */
-					 /* Conversion needed during output */
 					j++;
 					count++;
 					break;
 			}
 		}
 		else
-		{
 			buffer[j] = format[i];
 			j++;
-		}
 	}
-
 	va_end(args);
-
-	/* Write the buffer to stdout && Return number of bytes printed */
-	returnValue = (int) write(1, buffer, j);
-	return (returnValue);
+	return(write(1, buffer, j));
 }
 
 /**
