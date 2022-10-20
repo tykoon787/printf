@@ -1,6 +1,4 @@
-#include <stdio.h>
 #include <stdarg.h>
-#include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "main.h"
@@ -25,6 +23,8 @@ int _printf(const char *format, ...)
 		i++;
 	}
 	buffer = malloc(sizeof(char) * len);
+	if (buffer == NULL)
+		return (NULL);
 	for (i = 0; i < len; i++)
 	{
 		if (format[i] == '%')
