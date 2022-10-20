@@ -5,6 +5,13 @@
 #include <unistd.h>
 #include "main.h"
 
+/** 
+ * _printf- Implementation of `printf()`
+ * @format- User Input
+ *
+ * Return: Number of bytes written to `stdout`
+ */
+
 int _printf(const char *format, ...)
 {
 	int i = 0, j = 0, count = 0, returnValue = 22, size = 0, len = 0;
@@ -38,7 +45,8 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			switch(format[i + 1])
+			i++;
+			switch(format[i])
 			{
 				case 'c':
 					buffer[j] = (char) va_arg(args, int);
@@ -48,7 +56,7 @@ int _printf(const char *format, ...)
 				case 's':
 					str_arg = va_arg(args, char *);
 					_strcpy(&buffer[j], str_arg);
-					j = j + strlen(str_arg);
+					j = j + _strlen(str_arg);
 					break;
 				case 'd':
 					buffer[j] = va_arg(args, int);
@@ -62,15 +70,12 @@ int _printf(const char *format, ...)
 		else
 		{
 			buffer[j] = format[i];
-			count++;
+			j++;
 		}
 	}
 	
-	
-
-	/* Write the buffer to stdout */
-	returnValue = (int) write(1, buffer, count + strlen(str_arg));
-	printf("Return Value : %d\n", returnValue);
+	/* Write the buffer to stdout && Return number of bytes printed */
+	returnValue = (int) write(1, buffer, j);
 	return (returnValue);
 }
 
@@ -130,6 +135,6 @@ int _strlen(char *str)
 
 int main(void)
 {
-	_printf("Hello %c %c %s World %c and %s", 'a', 'x', " Baby" , 'b', "Panda");
+	_printf("Hello %c %c %s World %c and %s", 'a', 'x', "Baby" , 'b', "Panda");
 	return (0);
 }
