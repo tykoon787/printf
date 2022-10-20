@@ -19,7 +19,6 @@ int _printf(const char *format, ...)
 	va_start(args, format);
 	while (format[i] != '\0')
 	{
-		printf("Value of word_counter: %d\n", word_counter);
 		if (format[i] == '%')
 		{
 			i++;
@@ -38,18 +37,4 @@ int _printf(const char *format, ...)
 	va_end(args);
 	word_counter = word_counter - 1;
 	return (word_counter);
-}
-
-/**
- * main- Entry Point
- *
- * Return: Always (0);
- *
- */
-
-int main(void)
-{
-	printf("%d\n", _printf("Hello %c_orld %s\n", 'W', "Jumanji"));
-
-	return (0);
 }
