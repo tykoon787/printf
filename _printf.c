@@ -16,14 +16,11 @@ int _printf(const char *format, ...)
 	char *buffer, *str_arg;
 
 	va_start(args, format);
-	while (format[i] != '\0')
-	{
+	while (format[len] != '\0')
 		len++;
-		i++;
-	}
 	buffer = malloc(sizeof(char) * len);
 	if (buffer == NULL)
-		return (int)(NULL);
+		return (-1);
 	for (i = 0; i < len; i++)
 	{
 		if (format[i] == '%')
