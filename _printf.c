@@ -16,7 +16,7 @@ int _printf(const char *format, ...)
 {
 	int i = 0, j = 0, len = 0;
 	va_list args;
-	char *buffer, *str_arg, *cpy_buffer;
+	char *buffer, *str_arg;
 
 	va_start(args, format);
 	while (format[i] != '\0')
@@ -27,8 +27,6 @@ int _printf(const char *format, ...)
 	buffer = malloc(sizeof(char) * len);
 	if (buffer == NULL)
 		return(-1);
-	else
-		cpy_buffer = buffer;
 	for (i = 0; i < len; i++)
 	{
 		if (format[i] == '%')
