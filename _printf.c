@@ -5,9 +5,9 @@
 #include <unistd.h>
 #include "main.h"
 
-/** 
+/**
  * _printf- Implementation of `printf()`
- * @format- User Input
+ * @format: User Input
  *
  * Return: Number of bytes written to `stdout`
  */
@@ -15,17 +15,18 @@
 int _printf(const char *format, ...)
 {
 	int i = 0, j = 0, len = 0;
-	va_list args; 
-	char *buffer, *str_arg, *cpy_buffer; 
+	va_list args;
+	char *buffer, *str_arg, *cpy_buffer;
 
 	va_start(args, format);
-	while(format[i] != '\0')
+	while (format[i] != '\0')
 	{
 		len++;
 		i++;
 	}
 	buffer = malloc(sizeof(char) * len);
-	if (buffer == NULL) return(-1);
+	if (buffer == NULL)
+		return(-1);
 	else
 		cpy_buffer = buffer;
 	for (i = 0; i < len; i++)
@@ -33,11 +34,11 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			switch(format[i])
+			switch (format[i])
 			{
 				case 'c':
 					buffer[j] = (char) va_arg(args, int);
-					j++; 
+					j++;
 					break;
 				case 's':
 					str_arg = va_arg(args, char *);
@@ -55,7 +56,7 @@ int _printf(const char *format, ...)
 			j++;
 	}
 	va_end(args);
-	return(write(1, buffer, j));
+	return (write(1, buffer, j));
 }
 
 /**
@@ -105,15 +106,4 @@ int _strlen(char *str)
 		;
 
 	return (i);
-}
-/**
- * main - entry point
- *
- * Return: Number of characters printed
- */
-
-int main(void)
-{
-	_printf("Hello %c %c %s World %c and %s", 'a', 'x', "Baby" , 'b', "Panda");
-	return (0);
 }
