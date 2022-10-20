@@ -1,103 +1,40 @@
-#include <stdarg.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <stdarg.h>
+#include "functions.h"
 #include "main.h"
 
 /**
- * _printf- Implementation of `printf()`
- * @format: User Input
+ * _printf- Function that implements the use of `printf`
+ * @format: Input string
  *
- * Return: Number of bytes written to `stdout`
+ * Return: Number of words printed by `_printf`
  */
+
 int _printf(const char *format, ...)
 {
-	int i = 0, j = 0, len = 0;
+	int (*fp)(va_list);
+	int word_counter = 0, i = 0;
 	va_list args;
-	char *buffer, *str_arg;
 
 	va_start(args, format);
-	while (format[len] != '\0')
-		len++;
-	buffer = malloc(sizeof(char) * len);
-	if (buffer == NULL)
-		return (-1);
-	for (i = 0; i < len; i++)
+	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
 			i++;
-			switch (format[i])
-			{
-				case 'c':
-					buffer[j] = (char) va_arg(args, int);
-					j++;
-					break;
-				case 's':
-					str_arg = va_arg(args, char *);
-					_strcpy(&buffer[j], str_arg);
-					j = j + _strlen(str_arg);
-					break;
-				case '%':
-					buffer[j] = format[i];
-					j++;
-					break;
-			}
+			fp = format_check(&format[i]);
+			word_counter = word_counter + fp(args);
+			i++;
+			continue;
 		}
 		else
 		{
-			buffer[j] = format[i];
-			j++;
+			_putchar(format[i]);
+			word_counter++;
 		}
+	i++;
 	}
-	return (write(1, buffer, j));
-}
-
-/**
- * _strcpy - copys a string to given destination
- * @dest: destination
- * @src: str source
- *
- * Return: pointer to buffer
- */
-
-char *_strcpy(char *dest, char *src)
-{
-	int i;
-
-	for (i = 0; src[i]; i++)
-	{
-		dest[i] = src[i];
-	}
-
-	/* omitted terminating null byte */
-	return (dest);
-}
-
-/**
- * _putchar - prints out characters
- * @c: character input
- *
- * Return: 0
- */
-
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-
-/**
- * _strlen - gets length of a string
- * @str: string input
- *
- * Return: length of string
- */
-
-int _strlen(char *str)
-{
-	int i;
-
-	for (i = 0; str[i]; i++)
-		;
-
-	return (i);
+	va_end(args);
+	word_counter = word_counter - 1;
+	return (word_counter);
 }
