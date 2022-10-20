@@ -42,6 +42,10 @@ int _printf(const char *format, ...)
 					_strcpy(&buffer[j], str_arg);
 					j = j + _strlen(str_arg);
 					break;
+				case '%':
+					buffer[j] = format[i];
+					j++;
+					break;
 			}
 		}
 		else
