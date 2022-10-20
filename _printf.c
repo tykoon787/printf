@@ -50,8 +50,10 @@ int _printf(const char *format, ...)
 			}
 		}
 		else
+		{
 			buffer[j] = format[i];
 			j++;
+		}
 	}
 	return (write(1, buffer, j));
 }
