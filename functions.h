@@ -6,6 +6,18 @@
 #include "main.h"
 
 /**
+ * print_perc- Prints percentage sign `%`
+ * @arg_perc: Percentage Argument
+ * Return: (1) Always Success
+ */
+
+int print_perc(__attribute__((unused))va_list arg_perc)
+{
+	_putchar('%');
+	return (1);
+}
+
+/**
 * print_char - prints a character
 * @arg_c: character argument
 *
@@ -54,6 +66,7 @@ int (*format_check(const char *format))(va_list)
 	spec sp[] = {
 		{"c", print_char},
 		{"s", print_str},
+		{"%", print_perc},
 		{NULL, NULL}
 	};
 
@@ -63,25 +76,6 @@ int (*format_check(const char *format))(va_list)
 			break;
 	}
 	return (sp[i].f);
-}
-
-/**
-* _strcpy - copys a string to given destination
-* @dest: destination
-* @src: str source
-*
-* Return: pointer to buffer
-*/
-
-char *_strcpy(char *dest, char *src)
-{
-	int i;
-
-	for (i = 0; src[i]; i++)
-	{
-		dest[i] = src[i];
-	}
-	return (dest);
 }
 
 /**
