@@ -1,7 +1,6 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include "main.h"
-#include <stdio.h>
 
 /**
 * print_char - prints a character
@@ -15,7 +14,7 @@ int print_char(va_list arg_c)
 	char *buff;
 	int x; 
 	x = va_arg(arg_c, int);
-	putchar(x);
+	_putchar(x);
 	return (1);
 }
 
@@ -23,7 +22,7 @@ int print_char(va_list arg_c)
 * print_str - prints string to buffer
 * @arg_str: string argument
 *
-* Return: string length
+* Return: (1) Always Success 
 */
 
 int print_str(va_list arg_str)
@@ -32,10 +31,9 @@ int print_str(va_list arg_str)
 	int x = 0;
 	while (str_arg[x] != '\0')
 	{
-		putchar(str_arg[x++]);
+		_putchar(str_arg[x++]);
 	}
-	printf("Len of str: %d\n", x);
-	return (x);
+	return (1);
 }
 
 /**
