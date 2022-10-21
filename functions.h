@@ -49,7 +49,7 @@ int print_str(va_list arg_str)
 	{
 		_putchar(str_arg[x++]);
 	}
-	return (1);
+	return (x);
 }
 
 /**
