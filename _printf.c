@@ -1,45 +1,53 @@
-#include <stdlib.h>
 #include <stdarg.h>
-#include "functions.h"
+#include <stdlib.h>
+#include <unistd.h>
 #include "main.h"
 
 /**
- * _printf- Function that implements the use of `printf`
- * @format: Input string
+ * _printf- Implementation of `printf()`
+ * @format: User Input
  *
- * Return: Number of words printed by `_printf`
+ * Return: Number of bytes written to `stdout`
  */
-
 int _printf(const char *format, ...)
 {
-	int (*fp)(va_list);
-	int word_counter = 0, i = 0;
+	int i = 0, j = 0, len = 0;
 	va_list args;
+	char *buffer, *str_arg;
 
 	va_start(args, format);
-	if (format == NULL)
+	while (format[len] != '\0')
+		len++;
+	buffer = malloc(sizeof(char) * len);
+	if (buffer == NULL)
 		return (-1);
-
-	while (format[i] != '\0')
+	for (i = 0; i < len; i++)
 	{
 		if (format[i] == '%')
 		{
 			i++;
-			fp = format_check(&format[i]);
-			if (fp == NULL)
-				return (-1);
-			word_counter = word_counter + fp(args);
-			i++;
-			continue;
+			switch (format[i])
+			{
+				case 'c':
+					buffer[j] = (char) va_arg(args, int);
+					j++;
+					break;
+				case 's':
+					str_arg = va_arg(args, char *);
+					_strcpy(&buffer[j], str_arg);
+					j = j + _strlen(str_arg);
+					break;
+				case '%':
+					buffer[j] = format[i];
+					j++;
+					break;
+			}
 		}
 		else
 		{
-			_putchar(format[i]);
-			word_counter++;
+			buffer[j] = format[i];
+			j++;
 		}
-	i++;
 	}
-	va_end(args);
-	word_counter = word_counter - 1;
-	return (word_counter);
+	return (write(1, buffer, j));
 }
