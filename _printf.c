@@ -1,4 +1,5 @@
 #include <stdarg.h>
+#include "functions.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include "main.h"
@@ -50,4 +51,42 @@ int _printf(const char *format, ...)
 		}
 	}
 	return (write(1, buffer, j));
+}
+
+/**
+ * _strcpy - copys a string to given destination
+ * @dest: destination
+ * @src: str source
+ *
+ * Return: pointer to buffer
+ */
+
+char *_strcpy(char *dest, char *src)
+{
+	int i;
+
+	for (i = 0; src[i]; i++)
+	{
+		dest[i] = src[i];
+	}
+
+	/* omitted terminating null byte */
+	return (dest);
+}
+
+/**
+ * _strlen - gets length of a string
+ * @str: string input
+ *
+ * Return: length of string
+ */
+
+int _strlen(char *str)
+{
+	int i;
+
+	for (i = 0; str[i]; i++)
+		;
+
+	return (i);
 }
