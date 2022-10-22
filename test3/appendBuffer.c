@@ -9,20 +9,19 @@
  * Return: Buffer address
  */
 
-extern char *main_buffer_address;
+#define BUFFSIZE 1024
 
 char *rtn_buffer()
 {
 
-	char *main_buffer_address = malloc(sizeof(char) * 1024);
-	snprintf(main_buffer_address, sizeof(main_buffer_address), "%s", "Baby");
-	return (main_buffer_address);
+	char *buffer = malloc(sizeof(char) * 1024);
+	snprintf(buffer, BUFFSIZE, "%s", "Baby Panda ");
+	return (buffer);
 }
 
-char *append_buffer(char *buff_add, char *str)
+char *append_buffer(char *str)
 {
-	char *appended_buffer;
-	buff_add = main_buffer_address;
+	char *buff_add = rtn_buffer();
 
 	int len = 0;
 	while (buff_add[len] != '\0')
@@ -40,27 +39,21 @@ char *append_buffer(char *buff_add, char *str)
 		len++;
 		i++;
 	}
-	appended_buffer = main_buffer_address;
-	return(appended_buffer);
+	return(buff_add);
 }
 
 
 int main(void)
 {
-	char *buffer = main_buffer_address;
-	printf("Heap Address Allocated :%p\n", buffer);
-	char *new_buffer = malloc(sizeof(char) * 1024);
-
-	/* Appending Buffer using append_buffer()*/
 	char str1[] = "Loves Babmoo";
-
-	char *appended_buffer = append_buffer(buffer, str1);
+	char *buffer = append_buffer(str1);
+	printf("Heap Address Allocated :%p\n", buffer);
 
 	/* Printing Appended Buffer */
 	int i = 0;
-	while (appended_buffer[i] != '\0')
+	while (buffer[i] != '\0')
 	{
-		putchar(appended_buffer[i]);
+		putchar(buffer[i]);
 		i++;
 	}
 }
