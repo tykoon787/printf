@@ -26,7 +26,6 @@ char *append_buffer(char *str)
 	int len = 0;
 	while (buff_add[len] != '\0')
 	{
-		printf("Searching through buffer\n");
 		len++;
 
 	}
