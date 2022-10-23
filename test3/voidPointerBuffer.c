@@ -21,6 +21,9 @@ void *rtn_buffer()
 
 void *append_buffer(char *buff_add, char *str)
 {
+	
+	
+
 	/* Check to See what the buffer contains. If it has anything, copy 
 	* all their contenst to the main buffer */
 	char *apd_buff = rtn_buffer();
