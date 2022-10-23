@@ -24,6 +24,7 @@ void *append_buffer(char *buff_add)
 {
 	/* Check to See what the buffer contains. If it has anything, copy 
 	* all their contenst to the main buffer */
+	printf("Called Append Buffer()\n");
 	char *apd_buff = rtn_buffer();
 	int len = 0;
 
@@ -33,6 +34,7 @@ void *append_buffer(char *buff_add)
 
 	}
 	printf("Reached End of Buffer. Start Appending\n");
+	printf("Returned buffer from rtn_buffer \nBuffer has something of size: %d\n", len);
 
 	/* Check to see if Buff_add is correctly returned from respective functions */
 	printf("Address of buff_add : %p\n", buff_add);
@@ -60,10 +62,34 @@ void *append_buffer(char *buff_add)
 	return(apd_buff);
 }
 
+void *write_to_main_buffer(char *main_buffer, char *buff_add)
+{
+	printf("Called write_to_main_buffer()\n");
+	int len = 0;
+
+	while (main_buffer[len] != '\0')
+	{
+		printf("Getting length :%d\n", len);
+		len++;
+	}
+
+	int i = 0;
+	while(buff_add[i] != '\0')
+	{
+		printf("Adding to main buffer\n");
+		printf("main_buffer[%d] = buff_add[%d]\n", len, i);
+		main_buffer[len] = buff_add[i];
+		len++;
+		i++;
+	}
+	return(main_buffer);
+}
+
+
 /* Function to print a character */
 void *print_char(va_list arg_c)
 {
-	printf("Looking for character\n");
+	printf("Called print_char()\n");
 	char *char_buffer = malloc(sizeof(char));
 
 	char x = (char)va_arg(arg_c, int);
@@ -81,7 +107,7 @@ void *print_char(va_list arg_c)
 /* Function to print a string */
 void *print_str(va_list arg_str)
 {
-	printf("Looking for string\n");
+	printf("Called print_str()\n");
 	char *str_buffer = malloc(BUFFSIZE);
 
 	char *str = va_arg(arg_str, char *);
@@ -108,6 +134,7 @@ int _printf(const char *format, ...)
 	va_list args;
 	char *buffer, *str_arg;
 	char *main_buffer;
+	char *char_buffer, *str_buffer;
 
 	va_start(args, format);
 	while (format[len] != '\0')
@@ -124,50 +151,31 @@ int _printf(const char *format, ...)
 			{
 				case 'c':
 					printf("Character Found\n");
-					main_buffer = append_buffer(print_char(args));
-					write(1, main_buffer, BUFFSIZE);
+					buffer[j++] = *(char *)append_buffer(print_char(args));
 					printf("End of find\n");
 					break;
 				case 's':
+					str_arg = append_buffer(print_str(args));
+					buffer[j++] = *str_arg;
 					printf("String Detected\n");
-					main_buffer = append_buffer(print_str(args));
 					printf("End of Strng Detection\n");
 					break;
 			}
 		}
 		else
 		{
+			printf("Printing to buffer[j]\n");
 			buffer[j] = format[i];
 			j++;
 		}
 	}
-	return (write(1, main_buffer, j));
-}
-
-
-void *write_to_main_buffer(char *main_buffer, char *buff_add)
-{
-	int len = 0;
-	while (main_buffer[len] != '\0')
-	{
-		len++;
-	}
-
-	int i = 0;
-	while(buff_add[i] != '\0')
-	{
-		main_buffer[len] = buff_add[i];
-		len++;
-		i++;
-	}
-
-	return(main_buffer);
+	return (write(1, buffer, j));
 }
 
 
 int main(void)
 {
 
-	_printf("I am %cot your brother and you are my %s\n", 'N', "Sister");
+	_printf("I am %cot your brother and you are my not my %s\n", 'N', "Sister");
 	return(0);
 }
