@@ -38,9 +38,10 @@ void *append_buffer(char *buff_add, char *str)
 	}
 	printf("Reached End of Buffer. Start Appending\n");
 
+	/* Check to see if Buff_add is correctly returned from respective functions */
 	printf("Address of buff_add : %p\n", buff_add);
 	
-	/* First append main buffer with buff_add */
+	/* Check to see whether the buffer was correctly populated */
 	int i = 0;
 	if (buff_add[i] == '\0')
 	{
@@ -51,6 +52,7 @@ void *append_buffer(char *buff_add, char *str)
 		printf("Proceeding to while loop\n");
 	}
 
+	/* First append main buffer with buff_add */
 	while (buff_add[i] != '\0')
 	{
 		printf("Appending Main Buffer with buffer_add\n");
@@ -71,6 +73,7 @@ void *append_buffer(char *buff_add, char *str)
 	return(apd_buff);
 }
 
+/* Function to print a character */
 void *print_char(va_list arg_c)
 {
 	printf("Looking for character\n");
