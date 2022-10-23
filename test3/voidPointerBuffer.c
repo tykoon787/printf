@@ -17,7 +17,6 @@ void *rtn_buffer()
 {
 
 	char *buffer = malloc(BUFFSIZE);
-	snprintf(buffer, BUFFSIZE, "%s", "Baby Panda ");
 	return (buffer);
 }
 
@@ -126,6 +125,7 @@ int _printf(const char *format, ...)
 				case 'c':
 					printf("Character Found\n");
 					main_buffer = append_buffer(print_char(args));
+					write(1, main_buffer, BUFFSIZE);
 					printf("End of find\n");
 					break;
 				case 's':
@@ -145,6 +145,24 @@ int _printf(const char *format, ...)
 }
 
 
+void *write_to_main_buffer(char *main_buffer, char *buff_add)
+{
+	int len = 0;
+	while (main_buffer[len] != '\0')
+	{
+		len++;
+	}
+
+	int i = 0;
+	while(buff_add[i] != '\0')
+	{
+		main_buffer[len] = buff_add[i];
+		len++;
+		i++;
+	}
+
+	return(main_buffer);
+}
 
 
 int main(void)
