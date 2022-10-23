@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h> 
+#include <stdarg.h>
+#include <unistd.h>
 
 /* Works like a charm */
 
@@ -31,14 +33,24 @@ void *append_buffer(char *buff_add, char *str)
 
 	while (apd_buff[len] != '\0')
 	{
-		printf("Searching through buffer\n");
 		len++;
 
 	}
 	printf("Reached End of Buffer. Start Appending\n");
 
+	printf("Address of buff_add : %p\n", buff_add);
+	
 	/* First append main buffer with buff_add */
 	int i = 0;
+	if (buff_add[i] == '\0')
+	{
+		printf("Empty Buffer\n");
+	}
+	else
+	{
+		printf("Proceeding to while loop\n");
+	}
+
 	while (buff_add[i] != '\0')
 	{
 		printf("Appending Main Buffer with buffer_add\n");
@@ -59,23 +71,64 @@ void *append_buffer(char *buff_add, char *str)
 	return(apd_buff);
 }
 
+void *print_char(va_list arg_c)
+{
+	printf("Looking for character\n");
+	char *char_buffer = malloc(sizeof(char));
+
+	char x = (char)va_arg(arg_c, int);
+
+	int i = 0;
+	if (char_buffer[i] == '\0')
+	{
+		printf("Character buffer Empty\n ... Waiting For append\n");
+		char_buffer[i] = x;
+		printf("Finished Appending\n");
+	}
+	return(char_buffer);
+}
+
+int _printf(const char *format, ...)
+{
+	int i = 0, j = 0, len = 0;
+	va_list args;
+	char *buffer, *str_arg;
+	char *main_buffer;
+
+	va_start(args, format);
+	while (format[len] != '\0')
+		len++;
+	buffer = malloc(sizeof(char) * len);
+	if (buffer == NULL)
+		return (-1);
+	for (i = 0; i < len; i++)
+	{
+		if (format[i] == '%')
+		{
+			i++;
+			switch (format[i])
+			{
+				case 'c':
+					printf("Character Found\n");
+					main_buffer = append_buffer(print_char(args), "");
+					printf("End of find\n");
+			}
+		}
+		else
+		{
+			buffer[j] = format[i];
+			j++;
+		}
+	}
+	return (write(1, main_buffer, j));
+}
+
+
+
 
 int main(void)
 {
-	char str1[] = "Loves Babmoo";
-	int *main_buffer = malloc(BUFFSIZE);
-	char *buffer = append_buffer((char *)main_buffer, str1);
-	printf("Heap Address Allocated :%p\n", buffer);
 
-	/* Printing Appended Buffer */
-	int i = 0;
-	while (buffer[i] != '\0')
-	{
-		putchar(buffer[i]);
-		i++;
-	}
-
-	putchar('\n');
-	/* printf("Animals Like %s love the letter %c and the word %% %s %%\n",  */
-	/* "Pandas", 'x', "Bamboo"); */
+	_printf("I am %cot your brother\n", 'N');
+	return(0);
 }
