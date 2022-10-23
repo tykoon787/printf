@@ -127,6 +127,12 @@ int _printf(const char *format, ...)
 					printf("Character Found\n");
 					main_buffer = append_buffer(print_char(args));
 					printf("End of find\n");
+					break;
+				case 's':
+					printf("String Detected\n");
+					main_buffer = append_buffer(print_str(args));
+					printf("End of Strng Detection\n");
+					break;
 			}
 		}
 		else
@@ -144,6 +150,6 @@ int _printf(const char *format, ...)
 int main(void)
 {
 
-	_printf("I am %cot your brother\n", 'N');
+	_printf("I am %cot your brother and you are my %s\n", 'N', "Sister");
 	return(0);
 }
