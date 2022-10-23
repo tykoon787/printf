@@ -1,6 +1,8 @@
 #include <stdio.h> 
 #include <stdlib.h>
 
+/* Works like a charm */
+
 /**
  * rtn_buffer- Function that returns buffer address
  *
@@ -19,6 +21,7 @@ int main(void)
 {
 	printf("Heap Address Allocated :%p\n", rtn_buffer());
 	char *buffer = rtn_buffer();
+	printf("Heap Address Allocated :%p\n", buffer);
 	char *new_buffer = malloc(sizeof(char) * 1024);
 
 	int len = 0; 
