@@ -91,6 +91,30 @@ void *print_char(va_list arg_c)
 	return(char_buffer);
 }
 
+/* Function to print a string */
+void *print_str(va_list arg_str)
+{
+	printf("Looking for string\n");
+	char *str_buffer = malloc(BUFFSIZE);
+
+	char *str = va_arg(arg_str, char *);
+
+	int len = 0;
+	while (str_buffer[len] != '\0')
+	{
+		len++;
+	}
+
+	int i = 0;
+	while(str[i] != '\0')
+	{
+		str_buffer[len] = str[i];
+		len++;
+		i++;
+	}
+	return(str_buffer);
+}
+
 int _printf(const char *format, ...)
 {
 	int i = 0, j = 0, len = 0;
