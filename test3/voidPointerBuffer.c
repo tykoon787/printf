@@ -21,11 +21,8 @@ void *rtn_buffer()
 	return (buffer);
 }
 
-void *append_buffer(char *buff_add, char *str)
+void *append_buffer(char *buff_add)
 {
-	
-	
-
 	/* Check to See what the buffer contains. If it has anything, copy 
 	* all their contenst to the main buffer */
 	char *apd_buff = rtn_buffer();
@@ -57,15 +54,6 @@ void *append_buffer(char *buff_add, char *str)
 	{
 		printf("Appending Main Buffer with buffer_add\n");
 		apd_buff[len] = buff_add[i];
-		len++;
-		i++;
-	}
-
-	/* Then append buffer with str */
-	i = 0;
-	while (str[i] != '\0')
-	{
-		apd_buff[len] = str[i];
 		len++;
 		i++;
 	}
@@ -137,7 +125,7 @@ int _printf(const char *format, ...)
 			{
 				case 'c':
 					printf("Character Found\n");
-					main_buffer = append_buffer(print_char(args), "");
+					main_buffer = append_buffer(print_char(args));
 					printf("End of find\n");
 			}
 		}
