@@ -1,2 +1,1 @@
-# PRINTF
-## Partner Project to implement the functionality of printf
+0x11. C - printf team project

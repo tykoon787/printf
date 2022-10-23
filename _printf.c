@@ -1,92 +1,66 @@
-#include <stdarg.h>
-#include "functions.h"
-#include <stdlib.h>
-#include <unistd.h>
 #include "main.h"
 
+void print_buffer(char buffer[], int *buff_ind);
+
 /**
- * _printf- Implementation of `printf()`
- * @format: User Input
- *
- * Return: Number of bytes written to `stdout`
+ * _printf - Printf function
+ * @format: format.
+ * Return: Printed chars.
  */
 int _printf(const char *format, ...)
 {
-	int i = 0, j = 0, len = 0;
-	va_list args;
-	char *buffer, *str_arg;
+	int i, printed = 0, printed_chars = 0;
+	int flags, width, precision, size, buff_ind = 0;
+	va_list list;
+	char buffer[BUFF_SIZE];
 
-	va_start(args, format);
-	while (format[len] != '\0')
-		len++;
-	buffer = malloc(sizeof(char) * len);
-	if (buffer == NULL)
+	if (format == NULL)
 		return (-1);
-	for (i = 0; i < len; i++)
+
+	va_start(list, format);
+
+	for (i = 0; format && format[i] != '\0'; i++)
 	{
-		if (format[i] == '%')
+		if (format[i] != '%')
 		{
-			i++;
-			switch (format[i])
-			{
-				case 'c':
-					buffer[j] = (char) va_arg(args, int);
-					j++;
-					break;
-				case 's':
-					str_arg = va_arg(args, char *);
-					_strcpy(&buffer[j], str_arg);
-					j = j + _strlen(str_arg);
-					break;
-				case '%':
-					buffer[j] = format[i];
-					j++;
-					break;
-			}
+			buffer[buff_ind++] = format[i];
+			if (buff_ind == BUFF_SIZE)
+				print_buffer(buffer, &buff_ind);
+			/* write(1, &format[i], 1);*/
+			printed_chars++;
 		}
 		else
 		{
-			buffer[j] = format[i];
-			j++;
+			print_buffer(buffer, &buff_ind);
+			flags = get_flags(format, &i);
+			width = get_width(format, &i, list);
+			precision = get_precision(format, &i, list);
+			size = get_size(format, &i);
+			++i;
+			printed = handle_print(format, &i, list, buffer,
+				flags, width, precision, size);
+			if (printed == -1)
+				return (-1);
+			printed_chars += printed;
 		}
 	}
-	return (write(1, buffer, j));
+
+	print_buffer(buffer, &buff_ind);
+
+	va_end(list);
+
+	return (printed_chars);
 }
 
 /**
- * _strcpy - copys a string to given destination
- * @dest: destination
- * @src: str source
- *
- * Return: pointer to buffer
+ * print_buffer - Prints the contents of the buffer if it exist
+ * @buffer: Array of chars
+ * @buff_ind: Index at which to add next char, represents the length.
  */
-
-char *_strcpy(char *dest, char *src)
+void print_buffer(char buffer[], int *buff_ind)
 {
-	int i;
+	if (*buff_ind > 0)
+		write(1, &buffer[0], *buff_ind);
 
-	for (i = 0; src[i]; i++)
-	{
-		dest[i] = src[i];
-	}
-
-	/* omitted terminating null byte */
-	return (dest);
-}
-
-/**
- * _strlen - gets length of a string
- * @str: string input
- *
- * Return: length of string
- */
-
-int _strlen(char *str)
-{
-	int i;
-
-	for (i = 0; str[i]; i++)
-		;
-
-	return (i);
+	*buff_ind = 0;
 }
