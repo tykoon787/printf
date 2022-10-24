@@ -3,7 +3,6 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-/* Works like a charm */
 
 /**
  * rtn_buffer- Function that returns buffer address
@@ -12,19 +11,25 @@
  */
 
 #define BUFFSIZE 1024
-
 void *rtn_buffer()
 {
 
 	char *buffer = malloc(BUFFSIZE);
 	return (buffer);
+	free(buffer);
 }
+
+/**
+ * append_buffer- Function that appends the buffer
+ * @buff_add: Buffer address to be appended
+ *
+ * Return: Appended Buffer Address
+ */
 
 void *append_buffer(char *buff_add)
 {
 	/* Check to See what the buffer contains. If it has anything, copy 
 	* all their contenst to the main buffer */
-	printf("Called Append Buffer()\n");
 	char *apd_buff = rtn_buffer();
 	int len = 0;
 
@@ -33,63 +38,62 @@ void *append_buffer(char *buff_add)
 		len++;
 
 	}
-	printf("Reached End of Buffer. Start Appending\n");
-	printf("Returned buffer from rtn_buffer \nBuffer has something of size: %d\n", len);
-
-	/* Check to see if Buff_add is correctly returned from respective functions */
-	printf("Address of buff_add : %p\n", buff_add);
 	
 	/* Check to see whether the buffer was correctly populated */
 	int i = 0;
-	if (buff_add[i] == '\0')
-	{
-		printf("Empty Buffer\n");
-	}
-	else
-	{
-		printf("Proceeding to while loop\n");
-	}
-
 	/* First append main buffer with buff_add */
 	while (buff_add[i] != '\0')
 	{
-		printf("Appending Main Buffer with buffer_add\n");
 		apd_buff[len] = buff_add[i];
 		len++;
 		i++;
 	}
 	buff_add = apd_buff;
 	return(apd_buff);
+	free(apd_buff);
 }
 
-void *write_to_main_buffer(char *main_buffer, char *buff_add)
-{
-	printf("Called write_to_main_buffer()\n");
-	int len = 0;
+/**
+* _putchar - prints out characters
+* @c: character input
+*
+* Return: 0
+*/
 
-	while (main_buffer[len] != '\0')
-	{
-		printf("Getting length :%d\n", len);
-		len++;
-	}
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
+}
+
+
+/**
+ * print_perc- Prints percentage sign `%`
+ * @arg_perc: Percentage Argument
+ * Return: Buffer Address that has % sign
+ */
+
+void *print_perc(__attribute__((unused))va_list arg_perc)
+{
+	char *perc_buffer = malloc(BUFFSIZE);
 
 	int i = 0;
-	while(buff_add[i] != '\0')
+	if (perc_buffer[i] == '\0')
 	{
-		printf("Adding to main buffer\n");
-		printf("main_buffer[%d] = buff_add[%d]\n", len, i);
-		main_buffer[len] = buff_add[i];
-		len++;
-		i++;
+		perc_buffer[i] = '%';
 	}
-	return(main_buffer);
+	return(perc_buffer);
+	free(perc_buffer);
 }
 
+/**
+* print_char - prints a character
+* @arg_c: character argument
+*
+* Return: Buffer address that stores the character 
+*/
 
-/* Function to print a character */
 void *print_char(va_list arg_c)
 {
-	printf("Called print_char()\n");
 	char *char_buffer = malloc(sizeof(char));
 
 	char x = (char)va_arg(arg_c, int);
@@ -97,17 +101,22 @@ void *print_char(va_list arg_c)
 	int i = 0;
 	if (char_buffer[i] == '\0')
 	{
-		printf("Character buffer Empty\n ... Waiting For append\n");
 		char_buffer[i] = x;
-		printf("Finished Appending\n");
 	}
 	return(char_buffer);
+
+	free(char_buffer);
 }
 
-/* Function to print a string */
+/**
+* print_str - prints string to buffer
+* @arg_str: string argument
+*
+* Return: Buffer Address storing the string 
+*/
+
 void *print_str(va_list arg_str)
 {
-	printf("Called print_str()\n");
 	char *str_buffer = malloc(BUFFSIZE);
 
 	char *str = va_arg(arg_str, char *);
@@ -126,15 +135,21 @@ void *print_str(va_list arg_str)
 		i++;
 	}
 	return(str_buffer);
+	free(str_buffer);
 }
+
+/**
+ * _printf- Function that implements the use of `printf`
+ * @format: Input string
+ *
+ * Return: Number of words printed by `_printf`
+ */
 
 int _printf(const char *format, ...)
 {
 	int i = 0, j = 0, len = 0;
 	va_list args;
 	char *buffer, *str_arg;
-	char *main_buffer;
-	char *char_buffer, *str_buffer;
 
 	va_start(args, format);
 	while (format[len] != '\0')
@@ -149,6 +164,9 @@ int _printf(const char *format, ...)
 			i++;
 			switch (format[i])
 			{
+				case '%':
+					buffer[j++] = *(char *)append_buffer(print_perc(args)); 
+					break;
 				case 'c':
 					buffer[j++] = *(char *)append_buffer(print_char(args));
 					break;
@@ -156,26 +174,21 @@ int _printf(const char *format, ...)
 					str_arg = append_buffer(print_str(args));
 					while(*str_arg)
 					{
-						buffer[j++] = *str_arg; 
-						str_arg++;
+						buffer[j++] = *str_arg++; 
 					}
 					break;
 			}
 		}
 		else
-		{
-			printf("Printing to buffer[j]\n");
-			buffer[j] = format[i];
-			j++;
-		}
+			buffer[j++] = format[i];
 	}
 	return (write(1, buffer, j));
+	free(buffer);
 }
-
 
 int main(void)
 {
 
-	_printf("I am %cot your brother and you are my not my %s\n", 'N', "Sister");
+	_printf("Animals like %s like the letter [%c] and the word %% %s %%\n", "Pandas", 'x', "Bamboo");
 	return(0);
 }
