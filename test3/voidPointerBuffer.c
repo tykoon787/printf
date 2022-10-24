@@ -150,15 +150,15 @@ int _printf(const char *format, ...)
 			switch (format[i])
 			{
 				case 'c':
-					printf("Character Found\n");
 					buffer[j++] = *(char *)append_buffer(print_char(args));
-					printf("End of find\n");
 					break;
 				case 's':
 					str_arg = append_buffer(print_str(args));
-					buffer[j++] = *str_arg;
-					printf("String Detected\n");
-					printf("End of Strng Detection\n");
+					while(*str_arg)
+					{
+						buffer[j++] = *str_arg; 
+						str_arg++;
+					}
 					break;
 			}
 		}
