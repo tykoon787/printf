@@ -15,13 +15,14 @@
 
 int _printf(const char *format, ...)
 {
-	if (format == NULL)
-		return (-1);
 	int i = 0, j = 0, len = 0;
+
 	va_list args;
 	char *buffer, *str_arg;
-
 	va_start(args, format);
+
+	if (format == NULL)
+		return (-1);
 	while (format[len] != '\0')
 		len++;
 	buffer = malloc(sizeof(char) * len);
