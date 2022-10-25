@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <stdio.h> 
+#include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
 #include "functions.h"
@@ -31,16 +31,16 @@ int _printf(const char *format, ...)
 			switch (format[i])
 			{
 				case '%':
-					buffer[j++] = *(char *)append_buffer(print_perc(args)); 
+					buffer[j++] = *(char *)append_buffer(print_perc(args));
 					break;
 				case 'c':
 					buffer[j++] = *(char *)append_buffer(print_char(args));
 					break;
 				case 's':
 					str_arg = append_buffer(print_str(args));
-					while(*str_arg)
+					while (*str_arg)
 					{
-						buffer[j++] = *str_arg++; 
+						buffer[j++] = *str_arg++;
 					}
 					break;
 			}
@@ -50,11 +50,4 @@ int _printf(const char *format, ...)
 	}
 	return (write(1, buffer, j));
 	free(buffer);
-}
-
-int main(void)
-{
-
-	_printf("Animals like %s like the letter [%c] and the word %% %s %%\n", "Pandas", 'x', "Bamboo");
-	return(0);
 }
