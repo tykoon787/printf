@@ -39,15 +39,19 @@ void *print_str(va_list arg_str)
 
 void *print_int(va_list arg_int)
 {
-	char *int_buffer = malloc(sizeof(int));	
-	char x = va_arg(arg_int, int);
+	int *int_buffer = malloc(BUFFSIZE);	
+	int x = va_arg(arg_int, int);
 
 	int i = 0; 
 
+
 	if (int_buffer[i] == '\0')
 	{
+		printf("Is null\n");
 		int_buffer[i] = x;
+		printf("Done\n");
 	}
+	printf("%d\n", *int_buffer);
 	return (int_buffer);
 	free(int_buffer);
 }
