@@ -3,6 +3,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "functions.h"
+#include "functions2.h"
 
 /**
  * _printf- Function that implements the use of `printf`
