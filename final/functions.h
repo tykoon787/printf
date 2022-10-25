@@ -1,3 +1,6 @@
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -13,6 +16,7 @@ void *rtn_buffer()
 {
 
 	char *buffer = malloc(BUFFSIZE);
+
 	return (buffer);
 	free(buffer);
 }
@@ -26,8 +30,8 @@ void *rtn_buffer()
 
 void *append_buffer(char *buff_add)
 {
-	/* Check to See what the buffer contains. If it has anything, copy 
-	* all their contenst to the main buffer */
+	/* Check to See what the buffer contains. If it has anything, copy */
+	/* all their contenst to the main buffer */
 	char *apd_buff = rtn_buffer();
 	int len = 0;
 
@@ -36,7 +40,7 @@ void *append_buffer(char *buff_add)
 		len++;
 
 	}
-	
+
 	/* Check to see whether the buffer was correctly populated */
 	int i = 0;
 	/* First append main buffer with buff_add */
@@ -47,7 +51,7 @@ void *append_buffer(char *buff_add)
 		i++;
 	}
 	buff_add = apd_buff;
-	return(apd_buff);
+	return (apd_buff);
 	free(apd_buff);
 }
 
@@ -75,11 +79,12 @@ void *print_perc(__attribute__((unused))va_list arg_perc)
 	char *perc_buffer = malloc(BUFFSIZE);
 
 	int i = 0;
+
 	if (perc_buffer[i] == '\0')
 	{
 		perc_buffer[i] = '%';
 	}
-	return(perc_buffer);
+	return (perc_buffer);
 	free(perc_buffer);
 }
 
@@ -87,7 +92,7 @@ void *print_perc(__attribute__((unused))va_list arg_perc)
 * print_char - prints a character
 * @arg_c: character argument
 *
-* Return: Buffer address that stores the character 
+* Return: Buffer address that stores the character
 */
 
 void *print_char(va_list arg_c)
@@ -97,12 +102,12 @@ void *print_char(va_list arg_c)
 	char x = (char)va_arg(arg_c, int);
 
 	int i = 0;
+
 	if (char_buffer[i] == '\0')
 	{
 		char_buffer[i] = x;
 	}
-	return(char_buffer);
-
+	return (char_buffer);
 	free(char_buffer);
 }
 
@@ -110,7 +115,7 @@ void *print_char(va_list arg_c)
 * print_str - prints string to buffer
 * @arg_str: string argument
 *
-* Return: Buffer Address storing the string 
+* Return: Buffer Address storing the string
 */
 
 void *print_str(va_list arg_str)
@@ -120,20 +125,22 @@ void *print_str(va_list arg_str)
 	char *str = va_arg(arg_str, char *);
 
 	int len = 0;
+
 	while (str_buffer[len] != '\0')
 	{
 		len++;
 	}
 
 	int i = 0;
-	while(str[i] != '\0')
+
+	while (str[i] != '\0')
 	{
 		str_buffer[len] = str[i];
 		len++;
 		i++;
 	}
-	return(str_buffer);
+	return (str_buffer);
 	free(str_buffer);
 }
 
-
+#endif /* FUNCTIONS_H */
