@@ -37,4 +37,19 @@ void *print_str(va_list arg_str)
 	free(str_buffer);
 }
 
+void *print_int(va_list arg_int)
+{
+	char *int_buffer = malloc(sizeof(int));	
+	char x = va_arg(arg_int, int);
+
+	int i = 0; 
+
+	if (int_buffer[i] == '\0')
+	{
+		int_buffer[i] = x;
+	}
+	return (int_buffer);
+	free(int_buffer);
+}
+
 #endif /* FUNCTIONS2_H */
