@@ -38,6 +38,8 @@ int _printf(const char *format, ...)
 				case '%':
 					buffer[j++] = *(char *)append_buffer(print_perc(args));
 					break;
+				case 'd':
+					buffer[j++] = *(int *)append_buffer(print_int(args));
 				case 'c':
 					buffer[j++] = *(char *)append_buffer(print_char(args));
 					break;
