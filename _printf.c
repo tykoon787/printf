@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include "main.h"
 #include "functions.h"
 #include "functions2.h"
 
