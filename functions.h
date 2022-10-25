@@ -34,7 +34,7 @@ void *append_buffer(char *buff_add)
 	/* Check to See what the buffer contains. If it has anything, copy */
 	/* all their contenst to the main buffer */
 	char *apd_buff = rtn_buffer();
-	int len = 0;
+	int len = 0, i = 0;
 
 	while (apd_buff[len] != '\0')
 	{
@@ -43,7 +43,6 @@ void *append_buffer(char *buff_add)
 	}
 
 	/* Check to see whether the buffer was correctly populated */
-	int i = 0;
 	/* First append main buffer with buff_add */
 	while (buff_add[i] != '\0')
 	{

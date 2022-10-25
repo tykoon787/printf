@@ -19,14 +19,13 @@ void *print_str(va_list arg_str)
 
 	char *str = va_arg(arg_str, char *);
 
-	int len = 0;
+	int len = 0, i = 0;
 
 	while (str_buffer[len] != '\0')
 	{
 		len++;
 	}
 
-	int i = 0;
 
 	while (str[i] != '\0')
 	{
