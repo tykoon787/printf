@@ -15,7 +15,8 @@
 
 int _printf(const char *format, ...)
 {
-	int i = 0, j = 0, len = 0;
+	int i = 0, j = 0, len = 0; 
+	int *y = 0;
 
 	va_list args;
 	char *buffer, *str_arg;
@@ -39,7 +40,12 @@ int _printf(const char *format, ...)
 					buffer[j++] = *(char *)append_buffer(print_perc(args));
 					break;
 				case 'd':
-					buffer[j++] = *(int *)append_buffer(print_int(args));
+					y = append_buffer(print_int(args));
+					while (*y)
+					{
+						buffer[j++] = *y++;
+					}
+					break;
 				case 'c':
 					buffer[j++] = *(char *)append_buffer(print_char(args));
 					break;
@@ -57,4 +63,12 @@ int _printf(const char *format, ...)
 	}
 	return (write(1, buffer, j));
 	free(buffer);
+}
+
+int main(void)
+{
+	_printf("Animals like %s love the letter [%c] and the word %% %s %d %%\n",
+	"Pandas", 'x', "Bambo-",12);
+	
+	return(0);
 }
